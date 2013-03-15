@@ -14,7 +14,7 @@ public class PublicationController {
 	@Autowired
 	PublicationService publicationService;
 	
-	@RequestMapping(value="/list", method=RequestMethod.GET)
+	@RequestMapping(value="/pub", method=RequestMethod.GET)
 	public Publication hello() {
 		return publicationService.getPublicationById(6634104);
 	}
