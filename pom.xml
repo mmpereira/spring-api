@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -6,8 +5,6 @@
 	<artifactId>spring-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-
-
 	<dependencies>
 		<dependency>
 			<groupId>postgresql</groupId>
@@ -25,23 +22,6 @@
 			<version>3.1.2.RELEASE</version>
 		</dependency>
 		<dependency>
-=======
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.genebio.nextprot</groupId>
-  <artifactId>spring-api</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
-  
-  
-  <dependencies>
-	  <dependency>
-	  		<groupId>com.genebio.nextprot</groupId>
-	  		<artifactId>services</artifactId>
-	  		<version>0.0.1-SNAPSHOT</version>
-	  	</dependency>
-	  	<dependency>
->>>>>>> branch 'master' of https://github.com/mmpereira/spring-api.git
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>3.1.2.RELEASE</version>
