@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.genebio.nextprot.domain.Publication;
-import com.genebio.nextprot.services.PublicationService;
+import com.genebio.nextprot.service.PublicationService;
 
 @Controller("publicationController")
 public class PublicationController {
