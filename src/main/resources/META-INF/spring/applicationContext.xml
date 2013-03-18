@@ -11,7 +11,7 @@
 		http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 
 
-	<import resource="classpath*:db-context.xml"/>
+	<import resource="classpath*:spring/db-context.xml"/>
 
 </beans>
 		
