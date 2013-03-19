@@ -24,6 +24,6 @@ public class PublicationController {
 	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public List<Publication> hell() {
-		return publicationService.getPublicationByTitle("%Correction%");
+		return publicationService.getPublicationByTitle(null);
 	}
 }
