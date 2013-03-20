@@ -18,14 +18,13 @@ public class PublicationController {
 	@Autowired
 	PublicationService publicationService;
 	
-//	http://localhost:8080/spring-api/pub/6634104.xml
+	//http://localhost:8080/spring-api/pub/6634104.xml
 	@RequestMapping(value="/pub/{id}", method=RequestMethod.GET)
 	public Publication get(@PathVariable("id") String id) {
 		return publicationService.getPublicationById(Integer.parseInt(id));
 	}
 
-
-//	http://localhost:8080/spring-api/list.xml?title=correction
+	//http://localhost:8080/spring-api/list.xml?title=correction
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public List<Publication> list(@RequestParam("title") String title) {
 		return publicationService.getPublicationByTitle("%"+title+"%");
