@@ -17,7 +17,7 @@ import com.genebio.nextprot.domain.Publication;
 import com.genebio.nextprot.service.AuthorService;
 import com.genebio.nextprot.service.PublicationService;
 
-@Controller("publicationController")
+@Controller
 public class PublicationController {
 
 	@Autowired
