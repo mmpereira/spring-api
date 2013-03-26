@@ -68,17 +68,23 @@ public class PublicationController {
 	 */
 	@RequestMapping(value = "/velocity/{id}", method = RequestMethod.GET)
 	public String mp(@PathVariable("id") String id, Model model) {
+		
+		//Gets the publication by an id
 		Publication publication = publicationService.getPublicationById(6634104);
-		model.addAttribute(publication);
 
+		//Gets the authors of that publication
 		List<Author> authors = authorService.getAuthorByPublicationId(publication.getId());
-		model.addAttribute("authors", authors);
 
+		//Gets the publications of an author
 		Map<Long, List<Long>> authorPublicationsMap = new HashMap<Long, List<Long>>();
 		for(Author a : authors){
 			authorPublicationsMap.put(Long.valueOf(a.getId()), publicationService.getPublicationIdsByAuthor(a.getLastName()));
 		}
-		
+
+
+		//Add the data structures to the view
+		model.addAttribute("publication", publication);
+		model.addAttribute("authors", authors);
 		model.addAttribute("authorPublications", authorPublicationsMap);
 
 		return "publication";
