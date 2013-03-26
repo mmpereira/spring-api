@@ -10,10 +10,10 @@
 		<name>$a.lastName</name>
 		<publications>
 		#foreach($pubId in $authorPublications.get($a.id))
-		<publication id="$pubId"/>
+			<publication id="$pubId"/>
   		#end
-</publications>
-		</author>
-#end
+		</publications>
+	</author>
+	#end
 	</authors>
 </publication>

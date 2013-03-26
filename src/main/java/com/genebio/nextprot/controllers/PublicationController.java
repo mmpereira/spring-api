@@ -27,23 +27,21 @@ public class PublicationController {
 	AuthorService authorService;
 
 	// http://localhost:8080/spring-api/pub/6634104.xml
-	@RequestMapping(value = "/pub/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/publications/{id}", method = RequestMethod.GET)
 	public Publication get(@PathVariable("id") String id) {
-
 		return publicationService.getPublicationById(Long.valueOf(id));
-
 	}
 
 	// http://localhost:8080/spring-api/list.xml?title=correction
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/publications/", method = RequestMethod.GET)
 	public List<Publication> list(@RequestParam("title") String title) {
 		return publicationService.getPublicationByTitle("%" + title + "%");
 	}
 
 	// Velocity viewer
 
-	// http://localhost:8080/spring-api/pub/v/6634104.xml
-	@RequestMapping(value = "/pub/v/{id}", method = RequestMethod.GET)
+	// http://localhost:8080/spring-api/velocity/6634104.xml
+	@RequestMapping(value = "/velocity/{id}", method = RequestMethod.GET)
 	public String mp(@PathVariable("id") String id, Model model) {
 		Publication publication = publicationService.getPublicationById(6634104);
 		model.addAttribute(publication);
@@ -51,7 +49,7 @@ public class PublicationController {
 		List<Author> authors = authorService.getAuthorByPublicationId(publication.getId());
 		model.addAttribute("authors", authors);
 
-		Map<Long, List<Long>> authorPublicationsMap = new HashMap();
+		Map<Long, List<Long>> authorPublicationsMap = new HashMap<Long, List<Long>>();
 		for(Author a : authors){
 			authorPublicationsMap.put(Long.valueOf(a.getId()), publicationService.getPublicationIdsByAuthor(a.getLastName()));
 		}
@@ -61,11 +59,4 @@ public class PublicationController {
 		return "publication";
 	}
 
-	// http://localhost:8080/spring-api/list/v.xml?title=correction
-	@RequestMapping(value = "/list/v", method = RequestMethod.GET)
-	public String list(@RequestParam("title") String title, Model model) {
-		List<Publication> publications = publicationService.getPublicationByTitle("%" + title + "%");
-		model.addAttribute("publications", publications);
-		return "publications";
-	}
 }

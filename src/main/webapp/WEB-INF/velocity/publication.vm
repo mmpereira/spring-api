@@ -1,0 +1,19 @@
+<publication>
+	<abstractText></abstractText>
+	<id>$publication.id</id>
+	<publicationDate>$publication.publicationDate</publicationDate>
+	<title>$publication.title</title>
+	<authors>
+	#foreach($a in $authors)
+	<author>
+		<id>$a.id</id>
+		<name>$a.lastName</name>
+		<publications>
+		#foreach($pubId in $authorPublications.get($a.id))
+			<publication id="$pubId"/>
+  		#end
+		</publications>
+	</author>
+	#end
+	</authors>
+</publication>
