@@ -26,21 +26,46 @@ public class PublicationController {
 	@Autowired
 	AuthorService authorService;
 
-	// http://localhost:8080/spring-api/pub/6634104.xml
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Mapping using Jackson (for xml one need to annotated the classes)
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Returns a publication by an id, example:
+	 * http://localhost:8080/spring-api/publications/6634104.json
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/publications/{id}", method = RequestMethod.GET)
 	public Publication get(@PathVariable("id") String id) {
 		return publicationService.getPublicationById(Long.valueOf(id));
 	}
 
-	// http://localhost:8080/spring-api/list.xml?title=correction
+	/**
+	 * Returns a list of publications, example:
+	 * http://localhost:8080/spring-api/publications/
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/publications/", method = RequestMethod.GET)
-	public List<Publication> list(@RequestParam("title") String title) {
-		return publicationService.getPublicationByTitle("%" + title + "%");
+	public List<Publication> list() {
+		return publicationService.getPublicationByTitle("%correction%");
 	}
 
-	// Velocity viewer
+	
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Mapping using Apache Velocity templates 
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// http://localhost:8080/spring-api/velocity/6634104.xml
+	/**
+	 * http://localhost:8080/spring-api/velocity/6634104/ --> Will use template publcation.vm
+	 * http://localhost:8080/spring-api/velocity/6634104.xml --> Will use template publcation.vm.xml
+	 * http://localhost:8080/spring-api/velocity/6634104.json --> Will use template publcation.vm.json
+	 * @param id
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/velocity/{id}", method = RequestMethod.GET)
 	public String mp(@PathVariable("id") String id, Model model) {
 		Publication publication = publicationService.getPublicationById(6634104);

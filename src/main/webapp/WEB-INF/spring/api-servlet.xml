@@ -33,35 +33,35 @@
 	<!-- View resolvers can also be configured with ResourceBundles or XML files. 
 		If you need different view resolving based on Locale, you have to use the 
 		resource bundle resolver. -->
-	
-	
-	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
-  <property name="mediaTypes">
-    <map>
-      <entry key="xml" value="application/xml"/>
-      <entry key="html" value="text/html"/>
-      <entry key="json" value="application/json"/>
-    </map>
-  </property>
-  <property name="viewResolvers">
-    <list>
-	<bean id="xmlVelocityResolver"
-		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
-		<property name="cache" value="true" />
-		<property name="prefix" value="" />
-		<property name="suffix" value=".vm" />
-		<property name="contentType" value="application/xml" />
+
+
+	<bean
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="mediaTypes">
+			<map>
+				<entry key="xml" value="application/xml" />
+				<entry key="html" value="text/html" />
+				<entry key="json" value="application/json" />
+			</map>
+		</property>
+		<property name="viewResolvers">
+			<list>
+				<bean class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+					<property name="cache" value="true" />
+					<property name="prefix" value="" />
+					<property name="suffix" value=".vm" />
+					<property name="contentType" value="application/xml" />
+				</bean>
+			</list>
+		</property>
+		<property name="defaultViews">
+			<list>
+				<bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+						<property name="contentType" value="application/json" />
+				</bean>
+			</list>
+		</property>
 	</bean>
-	<bean id="jsonVelocityResolver"
-		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
-		<property name="cache" value="true" />
-		<property name="prefix" value="" />
-		<property name="suffix" value=".vm" />
-		<property name="contentType" value="application/json" />
-	</bean>
-	   </list>
-  </property>
-</bean>
 
 
 </beans>		
