@@ -1,19 +1,23 @@
-<publication>
-	<abstractText></abstractText>
-	<id>$publication.id</id>
-	<publicationDate>$publication.publicationDate</publicationDate>
-	<title>$publication.title</title>
-	<authors>
+{
+	"id": "$publication.id",
+	"publicationDate": "$publication.publicationDate",
+	"title": "$publication.title",
+	"authors": [
 	#foreach($a in $authors)
-	<author>
-		<id>$a.id</id>
-		<name>$a.lastName</name>
-		<publications>
+	{
+		"id": "$a.id",
+		"lastName": "$a.lastName",
+		"publications": [
+##      This is a comment
 		#foreach($pubId in $authorPublications.get($a.id))
-			<publication id="$pubId"/>
-  		#end
-		</publications>
-	</author>
-	#end
-	</authors>
-</publication>
+		{
+			"publicationid": "$pubId"
+		} 	
+		#if($velocityCount != $authorPublications.get($a.id).size()) , #end
+ 		#end
+		]
+	}
+	#if($velocityCount != $authors.size()) , #end
+	#end 
+	]
+}

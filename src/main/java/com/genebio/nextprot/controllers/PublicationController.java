@@ -1,5 +1,7 @@
 package com.genebio.nextprot.controllers;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,9 +13,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.genebio.nextprot.domain.Author;
 import com.genebio.nextprot.domain.Publication;
+import com.genebio.nextprot.json.JsonUtils;
 import com.genebio.nextprot.service.AuthorService;
 import com.genebio.nextprot.service.PublicationService;
 
@@ -87,7 +102,45 @@ public class PublicationController {
 		model.addAttribute("authors", authors);
 		model.addAttribute("authorPublications", authorPublicationsMap);
 
+		
 		return "publication";
 	}
+	
+	//
+	// http://localhost:8080/spring-api/velocity/6634104/
+	@RequestMapping(value = "model/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public String mj(@PathVariable("id") String id, Model model) {
 
+		ObjectMapper m = JsonUtils.getObjectMapper();
+		ObjectNode root = m.createObjectNode();
+
+		//Gets the publication by an id
+		Publication publication = publicationService.getPublicationById(6634104);
+
+		root.put("pubId", publication.getId());
+		root.put("title", publication.getTitle());
+		root.put("text", publication.getAbstractText());
+
+		ArrayNode authorsArray = root.putArray("authors");
+		
+		//Gets the authors of that publication
+
+		List<Author> authors = authorService.getAuthorByPublicationId(publication.getId());
+		for(Author a : authors){
+			ObjectNode authorNode = m.createObjectNode();
+			ArrayNode publicationsIds = authorNode.putArray("publications");
+			
+			List<Long> publications = publicationService.getPublicationIdsByAuthor(a.getLastName());
+			for(Long pubId : publications){
+				ObjectNode pubNode = m.createObjectNode();
+				publicationsIds.add(pubNode.put("publicationId", pubId));
+			}
+			authorsArray.add(authorNode);
+		}
+
+		return JsonUtils.getRepresentationInString(m, root);
+		
+	}
+	
 }
