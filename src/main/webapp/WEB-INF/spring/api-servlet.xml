@@ -26,11 +26,11 @@
 	<mvc:annotation-driven />
 
 
-	<!-- 	JMX Support  -->
+	<!-- JMX Support -->
 	<context:mbean-export />
-	
 
-	<!-- 	Caching ehcache	 -->
+
+	<!-- Caching ehcache -->
 	<cache:annotation-driven />
 	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
 		<property name="cacheManager">
@@ -41,8 +41,20 @@
 		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
 		p:configLocation="config/ehcache.xml" />
 
+	<bean id="mBeanServer" class="java.lang.management.ManagementFactory"
+		factory-method="getPlatformMBeanServer" />
 
-	<!-- 	Instrumentation aspects  -->
+	<bean class="net.sf.ehcache.management.ManagementService"
+		init-method="init">
+		<constructor-arg ref="ehcache" />
+		<constructor-arg ref="mBeanServer" />
+		<constructor-arg value="true" />
+		<constructor-arg value="true" />
+		<constructor-arg value="true" />
+		<constructor-arg value="true" />
+	</bean>
+
+	<!-- Instrumentation aspects -->
 
 	<aop:aspectj-autoproxy />
 

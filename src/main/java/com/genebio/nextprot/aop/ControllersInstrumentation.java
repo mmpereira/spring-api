@@ -18,7 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  * @version $Revision$, $Date$, $Author$
  */
 @Aspect
-@ManagedResource(objectName = "nextprot:name=ControllersInstrumentation", description="My Managed Bean", log=true,
+@ManagedResource(objectName = "com.genebio.nextprot:name=ControllersInstrumentation", description="My Managed Bean", log=true,
 logFile="jmx.log", persistPeriod=200, persistLocation="/tmp", persistName="bar")
 public class ControllersInstrumentation {
 	

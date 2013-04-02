@@ -18,7 +18,7 @@ import org.springframework.jmx.export.annotation.ManagedResource;
  * @version $Revision$, $Date$, $Author$
  */
 @Aspect
-@ManagedResource("nextprot:name=ServicesInstrumentation")
+@ManagedResource("com.genebio.nextprot:name=ServicesInstrumentation")
 public class ServicesInstrumentation {
 	
 	private static final Log LOGGER = LogFactory.getLog(ServicesInstrumentation.class);
