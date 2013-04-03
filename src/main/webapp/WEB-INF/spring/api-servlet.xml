@@ -60,6 +60,7 @@
 
 	<bean class="com.genebio.nextprot.aop.ControllersInstrumentation"></bean>
 	<bean class="com.genebio.nextprot.aop.ServicesInstrumentation"></bean>
+	<bean class="com.genebio.nextprot.aop.ViewInstrumentation"></bean>
 
 
 	<context:component-scan base-package="com.genebio.nextprot" />
@@ -112,7 +113,15 @@
 				</bean>
 				<bean class="org.springframework.web.servlet.view.xml.MarshallingView">
 					<property name="marshaller">
-						<bean class="org.springframework.oxm.xstream.XStreamMarshaller" />
+						<bean class="org.springframework.oxm.xstream.XStreamMarshaller">
+							<property name="supportedClasses">
+								<list>
+									<value>java.util.List</value>
+									<value>com.genebio.nextprot.domain.Publication</value>
+									<value>com.genebio.nextprot.domain.Author</value>
+								</list>
+							</property>
+						</bean>
 					</property>
 				</bean>
 			</list>
